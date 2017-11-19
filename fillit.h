@@ -6,13 +6,13 @@
 /*   By: lburlach <lburlach@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/19 17:23:37 by lburlach          #+#    #+#             */
-/*   Updated: 2017/11/19 17:25:58 by lburlach         ###   ########.fr       */
+/*   Updated: 2017/11/19 17:59:58 by astadnik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FILLIT_H
 # define FILLIT_H
-# include "libft.h"
+# include "libft/libft.h"
 
 /*
 ** initializing struct for check.c, which will obviously check the input,

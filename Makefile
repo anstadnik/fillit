@@ -13,10 +13,10 @@ all: $(NAME)
 
 $(NAME): $(addprefix $(OLIB), $(OBJS))
 	$(MAKE) -C $(LIBP)
-	$(CC) $(CFLAGS) -o $@ -I$(LIBP) $(addprefix $(LIBP), $(LIB)) $^
+	$(CC) $(CFLAGS) -o $@ $(addprefix $(LIBP), $(LIB)) $^
 
 $(addprefix $(OLIB), %.o): %.c
-	$(CC) $(CFLAGS) -c -I$(LIBP) -o $@ $<
+	$(CC) $(CFLAGS) -c -o $@ $<
 
 clean:
 	rm -f $(addprefix $(OLIB), $(OBJS))
