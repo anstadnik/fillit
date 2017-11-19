@@ -1,19 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   createsheet.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: astadnik <astadnik@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/19 18:43:39 by astadnik          #+#    #+#             */
-/*   Updated: 2017/11/19 20:12:27 by astadnik         ###   ########.fr       */
+/*   Created: 2017/11/19 19:59:22 by astadnik          #+#    #+#             */
+/*   Updated: 2017/11/19 19:59:23 by astadnik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fillit.h"
+/*
+** Creates new sheet
+*/
 
-int	main()
-{
-	ft_putendl("Potato");
-	return (0);
-}
+#include "fillit.h"

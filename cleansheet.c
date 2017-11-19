@@ -1,19 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   cleansheet.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: astadnik <astadnik@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/19 18:43:39 by astadnik          #+#    #+#             */
-/*   Updated: 2017/11/19 20:12:27 by astadnik         ###   ########.fr       */
+/*   Created: 2017/11/19 19:59:32 by astadnik          #+#    #+#             */
+/*   Updated: 2017/11/19 19:59:34 by astadnik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fillit.h"
+/*
+** Frees memory in sheet
+*/
 
-int	main()
-{
-	ft_putendl("Potato");
-	return (0);
-}
+#include "fillit.h"
