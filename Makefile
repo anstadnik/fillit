@@ -16,7 +16,7 @@ $(NAME): $(addprefix $(OLIB), $(OBJS))
 	$(CC) $(CFLAGS) -o $@ -I$(LIBP) $(addprefix $(LIBP), $(LIB)) $^
 
 $(addprefix $(OLIB), %.o): %.c
-	$(CC) $(CFLAGS) -c -I$(LIBP)src -o $@ $<
+	$(CC) $(CFLAGS) -c -I$(LIBP) -o $@ $<
 
 clean:
 	rm -f $(addprefix $(OLIB), $(OBJS))
