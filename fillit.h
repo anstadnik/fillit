@@ -6,7 +6,7 @@
 /*   By: lburlach <lburlach@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/19 17:23:37 by lburlach          #+#    #+#             */
-/*   Updated: 2017/11/19 20:03:18 by astadnik         ###   ########.fr       */
+/*   Updated: 2017/11/20 15:43:15 by astadnik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 
 typedef	struct	s_params
 {
-	char	size_of_sq;
+	char	size;
 	char	amount;
 }				t_params;
 
@@ -35,10 +35,10 @@ typedef struct	s_colobj
 {
 	char			n;
 	char			size;
-	struct s_colobj	*u;
-	struct s_colobj	*l;
-	struct s_colobj	*d;
-	struct s_colobj	*r;
+	void			*u;
+	void			*l;
+	void			*d;
+	void			*r;
 }				t_colobj;
 
 /*
@@ -48,13 +48,14 @@ typedef struct	s_colobj
 
 typedef struct	s_point
 {
-	struct s_point	*c;
-	struct s_point	*u;
-	struct s_point	*l;
-	struct s_point	*d;
-	struct s_point	*r;
+	void			*c;
+	void			*u;
+	void			*l;
+	void			*d;
+	void			*r;
 }				t_point;
 
-void		cleansheet(t_colobj arr);
-t_colobj	createsheet(t_params params, char *file);
+void		cleansheet(t_colobj **head);
+t_colobj	createsheet(t_params *params, char *file);
+char		getindex(char n, char i);
 #endif
