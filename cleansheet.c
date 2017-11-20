@@ -6,7 +6,7 @@
 /*   By: astadnik <astadnik@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/19 19:59:32 by astadnik          #+#    #+#             */
-/*   Updated: 2017/11/19 19:59:34 by astadnik         ###   ########.fr       */
+/*   Updated: 2017/11/20 17:50:15 by astadnik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,3 +15,28 @@
 */
 
 #include "fillit.h"
+
+void		cleansheet(t_colobj **head)
+{
+	void	*curc;
+	void	*curp;
+	void	*temp;
+
+	if (!head || !*head)
+		return ;
+	curc = *head->r;
+	while (curc != (void)*head)
+	{
+		curp = ((t_point)curc)->d;
+		while (curp != curc)
+		{
+			temp = curp;
+			curp = ((t_point)curp)->d;
+			free(temp);
+		}
+		temp = curc;
+		curc = ((t_colobj)curc)->r;
+		free(temp);
+	}
+	free(*head);
+}
