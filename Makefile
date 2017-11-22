@@ -6,7 +6,7 @@ OBJP=./obj/
 LIBP=libft/
 LIB=libft.a
 NAME=fillit
-FILES=getindex.c main.c
+FILES=getindex.c createsheet.c cleansheet.c fillsheet.c index.c main.c
 OBJS = $(FILES:.c=.o)
 
 all: $(NAME)

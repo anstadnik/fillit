@@ -6,7 +6,7 @@
 /*   By: astadnik <astadnik@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/19 19:59:22 by astadnik          #+#    #+#             */
-/*   Updated: 2017/11/20 19:25:35 by astadnik         ###   ########.fr       */
+/*   Updated: 2017/11/22 11:50:25 by astadnik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,21 +45,17 @@ static char		fillcol(t_colobj *head, char n)
 {
 	t_colobj	*temp;
 
-	if (!temp = malloc(sizeof(t_colobj)))
-	{
-		cleansheet(&head);
+	if (!(temp = malloc(sizeof(t_colobj))))
 		return (0);
-	}
 	temp->r = head;
 	temp->l = head->l;
 	temp->u = temp;
 	temp->d = temp;
 	temp->n = n;
 	temp->size = 0;
-	((t_colobj)head->l)->r = temp;
+	((t_colobj *)head->l)->r = temp;
 	head->l = temp;
 	return (1);
-
 }
 
 /*
@@ -72,7 +68,7 @@ static char		makecol(t_colobj *head, char am, char size)
 	char		n;
 
 	n = 'A';
-	while (am > 0 || getindex(n, 2) != size + 1)
+	while (am > 0 || getindex(n, 1) != size + 1)
 	{
 		if (!fillcol(head, n))
 			return (0);
@@ -80,8 +76,8 @@ static char		makecol(t_colobj *head, char am, char size)
 		if (am > 0)
 			n++;
 		else
-			n = getindex(n, 1) == size ? 16 | getindex(n, 2) + 1 :
-					(getindex(n, 1) + 1) << 4 & getindex(n, 2);
+			n = getindex(n, 2) == size ? setindex(getindex(n, 1) + 1, 1) :
+					setindex(getindex(n, 1), getindex(n, 2) + 1);
 		n = am ? n : 17;
 	}
 	return (1);
@@ -98,11 +94,12 @@ t_colobj		*createsheet(t_params params, char *path)
 
 	fd = -1;
 	if (!path || !params.amount || !params.size
-			|| fd = open(path, O_RDONLY) != -1
-			|| !head = makehead()
+			|| (fd = open(path, O_RDONLY)) != -1
+			|| !(head = makehead())
 			|| !makecol(head, params.amount, params.size)
-			|| !fillsheet(head, fd))
-	{			
+			|| !fillsheet(head, fd, params.size))
+	{
+		cleansheet(&head);
 		if (fd != -1)
 			close(fd);
 		return (NULL);
