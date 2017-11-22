@@ -6,7 +6,7 @@
 /*   By: astadnik <astadnik@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/22 15:34:33 by astadnik          #+#    #+#             */
-/*   Updated: 2017/11/22 16:45:42 by astadnik         ###   ########.fr       */
+/*   Updated: 2017/11/22 20:58:19 by astadnik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,25 +15,34 @@
 static void	printcol(t_colobj *head)
 {
 	t_colobj	*ptr;
+	char		f;
 
-	putchar(head->n);
-	putstr("  ");
-	col = head->r;
-	while (col != void(head))
+	f = 0;
+	ft_putchar(head->n);
+	ft_putstr("  ");
+	ptr = head->r;
+	while (ptr != head)
 	{
-		putnbr(getindex(col->n), 1);
-		putnbr(getindex(col->n), 2);
-		putstr(" ");
-		col = col->r;
+		if (ptr->n == 17)
+			f = 1;
+		if (f)
+		{
+			ft_putnbr(getindex(ptr->n, 1));
+			ft_putnbr(getindex(ptr->n, 2));
+		}
+		else
+			ft_putchar(ptr->n);
+		ft_putstr(" ");
+		ptr = ptr->r;
 	}
-	putchar("\n");
-	putstr("   ");
-	while (col != void(head))
+	ft_putchar('\n');
+	ft_putstr("   ");
+	while (ptr != head)
 	{
-		putnbr(col->size);
-		putstr("  ");
+		ft_putnbr(ptr->size);
+		ft_putstr("  ");
 	}
-	putchar("\n");
+	ft_putchar('\n');
 }
 
 void	visualize(t_colobj *head)
@@ -48,22 +57,23 @@ void	visualize(t_colobj *head)
 	while (col->n != 17)
 	{//go through colums 'A', 'B' etc
 		rowh = col->d;
-		while (rowh != col)
+		while ((void *)rowh != (void *)col)
 		{//go down through one's
-			temp = (t_colobj)head->r;
-			putstr("   ");
+			temp = (t_colobj *)head->r;
+			ft_putstr("   ");
 			cur = rowh;
 			while (temp != head)
 			{
 				if (cur->c == temp)
 				{
-					putstr("1  ");
-					cur = (t_colobj)cur->r;
+					ft_putstr("1  ");
+					cur = (t_point *)cur->r;
 				}
 				else
-					putstr("   ");
-				temp = (t_colobj)temp->r;
+					ft_putstr("   ");
+				temp = (t_colobj *)temp->r;
 			}
+			ft_putchar('\n');
 			rowh = rowh->d;
 		}
 		col = col->r;

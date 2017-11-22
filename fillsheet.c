@@ -6,7 +6,7 @@
 /*   By: astadnik <astadnik@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/22 11:05:06 by astadnik          #+#    #+#             */
-/*   Updated: 2017/11/22 16:54:45 by astadnik         ###   ########.fr       */
+/*   Updated: 2017/11/22 20:47:30 by astadnik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,11 @@ static void	fillpos(char buf[21], char *pos, char size)
 		if (buf[i] == '#')
 		{
 			if (!j)
-				offs = setindex(i / (size + 1), i % (size + 1));
+				offs = setindex((char)i / (size + 1), (char)i % (size + 1));
 			pos[j++] = setindex(i / (size + 1) - getindex(offs, 1) + 1, i % (size + 1) - getindex(offs, 2) + 1);
 		}
 		i++;
-	}	
+	}
 }
 
 /*
@@ -52,13 +52,16 @@ static char	incpos(char *pos, char size)
 			f = 1;	
 	i = 0;
 	while (i < 4)
+	{
 		if (f)
 			pos[i] = setindex(getindex(pos[i], 1) + 1, getindex(pos[i], 2) - getindex(pos[0], 2) - 1);
 		else
 			pos[i] = setindex(getindex(pos[i], 1), getindex(pos[i], 2) + 1);
+		i++;
+	}
 	i = 0;
 	while (i < 4)
-		if (getindex(pos[i], 1) > size)
+		if (getindex(pos[i++], 1) > size)
 			return (0);
 	return (1);
 }
@@ -89,6 +92,7 @@ static t_point	*addone(t_colobj *col, t_point *rowh)
 	else
 		((t_point *)col->u)->d = one;
 	col->u = one;
+	col->size++;
 	return (one);
 }
 
@@ -120,7 +124,8 @@ static char	addones(t_colobj *head, char n, char *pos)
 			if (cur->n == pos[i++ - 1])
 				if (!addone(cur, first))
 					return (0);
-	}		
+	}
+	return (1);
 }
 
 /*
@@ -146,7 +151,7 @@ char	fillsheet(t_colobj *head, int fd, char size)
 			if (!addones(head, cur, pos))
 				return (0);
 		cur++;
-		if (!read(fd, buf, 21))
+		if (read(fd, buf, 21) == -1)
 			return (1);
 	}
 }

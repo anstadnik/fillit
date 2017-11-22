@@ -6,7 +6,7 @@
 /*   By: astadnik <astadnik@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/22 11:21:57 by astadnik          #+#    #+#             */
-/*   Updated: 2017/11/22 11:41:56 by astadnik         ###   ########.fr       */
+/*   Updated: 2017/11/22 20:08:38 by astadnik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,5 +25,5 @@ char	getindex(char n, char i)
 
 char	setindex(char n1, char n2)
 {
-	return (n1 << 4 | (n2 & 15));
+	return ((char)(n1 << 4 | (n2 & 15)));
 }
