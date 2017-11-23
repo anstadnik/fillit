@@ -6,7 +6,7 @@
 /*   By: lburlach <lburlach@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/19 17:23:37 by lburlach          #+#    #+#             */
-/*   Updated: 2017/11/19 20:30:44 by astadnik         ###   ########.fr       */
+/*   Updated: 2017/11/23 19:27:21 by lburlach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,4 +57,7 @@ typedef struct	s_point
 
 void		cleansheet(t_colobj arr);
 t_colobj	createsheet(t_params params, char *file);
+int			ft_sqrt(int num);
+int			check_t(char *buf, int count);
+t_params	*check(char *str);
 #endif

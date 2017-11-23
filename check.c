@@ -6,12 +6,11 @@
 /*   By: lburlach <lburlach@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/19 17:31:30 by lburlach          #+#    #+#             */
-/*   Updated: 2017/11/22 17:20:00 by lburlach         ###   ########.fr       */
+/*   Updated: 2017/11/23 19:31:11 by lburlach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
-#include "check2.c"
 #include <sys/stat.h>
 #include <sys/types.h>
 
@@ -20,7 +19,7 @@
 ** in file are appropriate.
 */
 
-int		first_check(char *buf)
+static	int		first_check(char *buf)
 {
 	int count;
 	int t_count;
@@ -52,7 +51,7 @@ int		first_check(char *buf)
 ** Also, function counts the number of tetriminos
 */
 
-int		second_check_n_count(char *buf, t_params **params, int *t_tet)
+static	int		second_check_n_count(char *buf, t_params **params, int *t_tet)
 {
 	int count;
 	int	t_count;
@@ -64,11 +63,7 @@ int		second_check_n_count(char *buf, t_params **params, int *t_tet)
 		if (buf[count] == '#')
 		{
 			if (check_t(buf, count))
-			{
 				(*t_tet)++;
-				ft_putnbr(*t_tet);
-				ft_putchar('\n');
-			}
 			if ((buf[count + 1] == '#' || buf[count + 5] == '#') && count == 0)
 				t_count++;
 			else if ((buf[count - 1] == '#' || buf[count + 1] == '#'
@@ -86,10 +81,10 @@ int		second_check_n_count(char *buf, t_params **params, int *t_tet)
 
 /*
 ** It calculates the size of the square according to the given number of
-** tetriminos. It pays attention to t_shaped tetriminos. 
+** tetriminos. It pays attention to t_shaped tetriminos.
 */
 
-void		count_size_of_sq(t_params **params, int t_tet)
+static	void	count_size_of_sq(t_params **params, int t_tet)
 {
 	if (t_tet % 2 == 1)
 		(*params)->size = ft_sqrt(((*params)->amount) * 4 + 2);
@@ -101,7 +96,7 @@ void		count_size_of_sq(t_params **params, int t_tet)
 ** Checkings, checkings and more of them.
 */
 
-int		fl_read(t_params **params, char *str)
+static	int		fl_read(t_params **params, char *str)
 {
 	char	buf[21];
 	int		fd;
@@ -116,8 +111,6 @@ int		fl_read(t_params **params, char *str)
 	(*params)->amount = 0;
 	while ((ret = read(fd, &buf, 21)))
 	{
-		ft_putnbr(ret);
-		ft_putchar('\n');
 		if (ret < 20 || ret > 21)
 			return (1);
 		if (!first_check(buf) || (!second_check_n_count(buf, params, &t_tet)))
@@ -136,7 +129,7 @@ int		fl_read(t_params **params, char *str)
 ** Had to create this func because of norm's constrictions.
 */
 
-t_params	*check(char *str)
+t_params		*check(char *str)
 {
 	t_params	*params;
 
@@ -145,20 +138,4 @@ t_params	*check(char *str)
 		return (NULL);
 	else
 		return (params);
-}
-
-int		main(int argc, char **argv)
-{
-	t_params	*tmp;
-
-	tmp = check(argv[argc - 1]);
-	if (tmp == NULL)
-	{
-		ft_putstr_fd("error\n", 2);
-		return (1);
-	}
-	ft_putnbr((int)tmp->amount);
-	ft_putchar('\n');
-	ft_putnbr((int)tmp->size);
-	return (0);
 }
