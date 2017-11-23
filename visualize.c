@@ -6,7 +6,7 @@
 /*   By: astadnik <astadnik@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/22 15:34:33 by astadnik          #+#    #+#             */
-/*   Updated: 2017/11/22 20:58:19 by astadnik         ###   ########.fr       */
+/*   Updated: 2017/11/23 17:32:18 by astadnik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,18 +29,23 @@ static void	printcol(t_colobj *head)
 		{
 			ft_putnbr(getindex(ptr->n, 1));
 			ft_putnbr(getindex(ptr->n, 2));
+			ft_putstr(" ");
 		}
 		else
+		{
 			ft_putchar(ptr->n);
-		ft_putstr(" ");
+			ft_putstr("  ");
+		}
 		ptr = ptr->r;
 	}
 	ft_putchar('\n');
 	ft_putstr("   ");
+	ptr = ptr->r;
 	while (ptr != head)
 	{
 		ft_putnbr(ptr->size);
 		ft_putstr("  ");
+		ptr = ptr->r;
 	}
 	ft_putchar('\n');
 }
