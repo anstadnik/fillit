@@ -35,10 +35,10 @@ typedef struct	s_colobj
 {
 	char			n;
 	char			size;
-	struct s_colobj	*u;
-	struct s_colobj	*l;
-	struct s_colobj	*d;
-	struct s_colobj	*r;
+	void			*u;
+	void			*l;
+	void			*d;
+	void			*r;
 }				t_colobj;
 
 /*
@@ -48,16 +48,17 @@ typedef struct	s_colobj
 
 typedef struct	s_point
 {
-	struct s_point	*c;
-	struct s_point	*u;
-	struct s_point	*l;
-	struct s_point	*d;
-	struct s_point	*r;
+	void			*c;
+	void			*u;
+	void			*l;
+	void			*d;
+	void			*r;
 }				t_point;
 
-void		cleansheet(t_colobj arr);
-t_colobj	createsheet(t_params params, char *file);
-int			ft_sqrt(int num);
-int			check_t(char *buf, int count);
-t_params	*check(char *str);
+void			cleansheet(t_colobj **head);
+t_colobj		*createsheet(t_params params, char *path);
+char			getindex(char n, char i);
+char			setindex(char n1, char n2);
+char			fillsheet(t_colobj *head, int fd, char size);
+void			visualize(t_colobj *head, char fl);
 #endif
