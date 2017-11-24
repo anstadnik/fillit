@@ -6,7 +6,7 @@
 /*   By: astadnik <astadnik@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/19 19:59:22 by astadnik          #+#    #+#             */
-/*   Updated: 2017/11/23 20:13:08 by astadnik         ###   ########.fr       */
+/*   Updated: 2017/11/24 12:14:58 by astadnik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,16 +79,6 @@ static char		makecol(t_colobj *head, char am, char size)
 			n = getindex(n, 2) == size ? setindex(getindex(n, 1) + 1, 1) :
 					setindex(getindex(n, 1), getindex(n, 2) + 1);
 		n = am ? n : 17;
-		/*
-		ft_putchar(n);
-		ft_putchar(' ');
-		ft_putnbr(getindex(n, 1));
-		ft_putchar(' ');
-		ft_putnbr(getindex(n, 2));
-		ft_putchar(' ');
-		ft_putnbr(am);
-		ft_putchar('\n');
-		*/
 	}
 	return (1);
 }

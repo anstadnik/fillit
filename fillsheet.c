@@ -6,7 +6,7 @@
 /*   By: astadnik <astadnik@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/22 11:05:06 by astadnik          #+#    #+#             */
-/*   Updated: 2017/11/24 11:55:06 by astadnik         ###   ########.fr       */
+/*   Updated: 2017/11/24 12:23:05 by astadnik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,28 +52,18 @@ static char	incpos(char *pos, char size)
 
 	f = 0;
 	i = 4;
-	//ft_putendl("potato1");
 	while (i--)
 	{
-		/*
-		ft_putnbr(getindex(pos[i], 1));
-		ft_putchar(' ');
-		ft_putnbr(getindex(pos[i], 2));
-		ft_putchar(' ');
-		ft_putnbr(i);
-		ft_putstr(" | ");
-		*/
 		if (getindex(pos[i], 2) + 1 > size)
-			f = 1;	
+			f = 1;
 	}
-	//ft_putendl("");
 	i = 4;
 	while (i--)
 		if (f)
-			pos[i] = setindex(getindex(pos[i], 1) + 1, getindex(pos[i], 2) - getindex(pos[0], 2) + 1);
+			pos[i] = setindex(getindex(pos[i], 1) + 1,
+					getindex(pos[i], 2) - getindex(pos[0], 2) + 1);
 		else
 			pos[i] = setindex(getindex(pos[i], 1), getindex(pos[i], 2) + 1);
-	//ft_putendl("potato2");
 	while (++i < 4)
 		if (getindex(pos[i], 2) < 1)
 		{
@@ -133,7 +123,6 @@ static char	addones(t_colobj *head, char n, char *pos)
 	cur = head;
 	while (i < 5)
 	{
-		//ft_putstr("potato1 ");
 		cur = (t_colobj *)cur->r;
 		if (cur->n == 17)
 			f = 1;
@@ -153,7 +142,6 @@ static char	addones(t_colobj *head, char n, char *pos)
 			i++;
 		}
 	}
-		//ft_putendl("potato2");
 	return (1);
 }
 
@@ -171,7 +159,10 @@ char	fillsheet(t_colobj *head, int fd, char size)
 		return (0);
 	buf[21] = '\0';
 	if (!(pos = malloc(sizeof(char) * 5)))
+	{
+		free(buf);
 		return (0);
+	}
 	pos[4] = '\0';
 	cur = 'A';
 	read(fd, buf, 21);
@@ -180,29 +171,21 @@ char	fillsheet(t_colobj *head, int fd, char size)
 		fillpos(buf, pos);
 		while (42)
 		{
-			//ft_putendl("potato1");
-			/*
-			for (int i = 0; i < 4; i++)
-			{
-			ft_putnbr(getindex(pos[i], 1));
-			ft_putchar(' ');
-			ft_putnbr(getindex(pos[i], 2));
-			ft_putstr(" | ");
-			}
-			ft_putchar(cur);
-			ft_putendl("");
-			*/
-			//ft_putendl("potato2");
 			if (!addones(head, cur, pos))
+			{
+				free(pos);
+				free(buf);
 				return (0);
+			}
 			if (!incpos(pos, size))
 				break ;
-			//ft_putendl("");
 		}
-		//ft_putendl("");
-		//ft_putendl("new iter");
 		cur++;
 		if (!read(fd, buf, 21))
+		{
+			free(pos);
+			free(buf);
 			return (1);
+		}
 	}
 }

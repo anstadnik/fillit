@@ -6,17 +6,17 @@
 /*   By: astadnik <astadnik@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/19 18:43:39 by astadnik          #+#    #+#             */
-/*   Updated: 2017/11/24 12:01:23 by astadnik         ###   ########.fr       */
+/*   Updated: 2017/11/24 12:23:29 by astadnik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
 
-int	main()
+int	main(void)
 {
-	//ft_putendl("Potato");
 	t_colobj	*head;
 	t_params	p;
+
 	ft_putendl("");
 	ft_putendl("ok_00.uu");
 	p.size = 4;

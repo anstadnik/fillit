@@ -6,7 +6,7 @@
 /*   By: astadnik <astadnik@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/22 15:34:33 by astadnik          #+#    #+#             */
-/*   Updated: 2017/11/24 12:01:04 by astadnik         ###   ########.fr       */
+/*   Updated: 2017/11/24 12:16:04 by astadnik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,10 +62,10 @@ void	visualize(t_colobj *head, char fl)
 	printcol(head, fl);
 	col = head->r;
 	while (col->n != 17)
-	{//go through colums 'A', 'B' etc
+	{
 		rowh = col->d;
 		while ((void *)rowh != (void *)col)
-		{//go down through one's
+		{
 			temp = (t_colobj *)head->r;
 			ft_putstr("   ");
 			cur = rowh;
