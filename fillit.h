@@ -6,7 +6,7 @@
 /*   By: lburlach <lburlach@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/19 17:23:37 by lburlach          #+#    #+#             */
-/*   Updated: 2017/11/22 20:09:29 by astadnik         ###   ########.fr       */
+/*   Updated: 2017/11/24 11:58:11 by astadnik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,5 +60,5 @@ t_colobj	*createsheet(t_params params, char *path);
 char		getindex(char n, char i);
 char		setindex(char n1, char n2);
 char		fillsheet(t_colobj *head, int fd, char size);
-void	visualize(t_colobj *head);
+void	visualize(t_colobj *head, char fl);
 #endif

@@ -6,13 +6,13 @@
 /*   By: astadnik <astadnik@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/22 15:34:33 by astadnik          #+#    #+#             */
-/*   Updated: 2017/11/23 17:32:18 by astadnik         ###   ########.fr       */
+/*   Updated: 2017/11/24 12:01:04 by astadnik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
 
-static void	printcol(t_colobj *head)
+static void	printcol(t_colobj *head, char fl)
 {
 	t_colobj	*ptr;
 	char		f;
@@ -39,6 +39,8 @@ static void	printcol(t_colobj *head)
 		ptr = ptr->r;
 	}
 	ft_putchar('\n');
+	if (!fl)
+		return ;
 	ft_putstr("   ");
 	ptr = ptr->r;
 	while (ptr != head)
@@ -50,14 +52,14 @@ static void	printcol(t_colobj *head)
 	ft_putchar('\n');
 }
 
-void	visualize(t_colobj *head)
+void	visualize(t_colobj *head, char fl)
 {
 	t_colobj	*col;
 	t_point		*rowh;
 	t_point		*cur;
 	t_colobj	*temp;
 
-	printcol(head);
+	printcol(head, fl);
 	col = head->r;
 	while (col->n != 17)
 	{//go through colums 'A', 'B' etc
@@ -82,5 +84,6 @@ void	visualize(t_colobj *head)
 			rowh = rowh->d;
 		}
 		col = col->r;
+		printcol(head, fl);
 	}
 }

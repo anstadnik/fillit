@@ -6,7 +6,7 @@
 /*   By: astadnik <astadnik@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/22 11:05:06 by astadnik          #+#    #+#             */
-/*   Updated: 2017/11/22 20:47:30 by astadnik         ###   ########.fr       */
+/*   Updated: 2017/11/24 11:55:06 by astadnik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 ** Fills pos arr with tetramino's coordinates
 */
 
-static void	fillpos(char buf[21], char *pos, char size)
+static void	fillpos(char buf[21], char *pos)
 {
 	char			offs;
 	unsigned char	i;
@@ -29,8 +29,13 @@ static void	fillpos(char buf[21], char *pos, char size)
 		if (buf[i] == '#')
 		{
 			if (!j)
-				offs = setindex((char)i / (size + 1), (char)i % (size + 1));
-			pos[j++] = setindex(i / (size + 1) - getindex(offs, 1) + 1, i % (size + 1) - getindex(offs, 2) + 1);
+				offs = setindex(i / 5, i % 5);
+			j = i;
+			while (buf[++j])
+				if (buf[j] == '#' && getindex(offs, 2) > j % 5)
+					offs = setindex(getindex(offs, 1), j % 5);
+			*pos++ = setindex(i / 5 - getindex(offs, 1) + 1, i %
+					5 - getindex(offs, 2) + 1);
 		}
 		i++;
 	}
@@ -46,22 +51,38 @@ static char	incpos(char *pos, char size)
 	unsigned char	f;
 
 	f = 0;
-	i = 0;
-	while (i < 4)
-		if (getindex(pos[i++], 2) + 1 > size)
-			f = 1;	
-	i = 0;
-	while (i < 4)
+	i = 4;
+	//ft_putendl("potato1");
+	while (i--)
 	{
+		/*
+		ft_putnbr(getindex(pos[i], 1));
+		ft_putchar(' ');
+		ft_putnbr(getindex(pos[i], 2));
+		ft_putchar(' ');
+		ft_putnbr(i);
+		ft_putstr(" | ");
+		*/
+		if (getindex(pos[i], 2) + 1 > size)
+			f = 1;	
+	}
+	//ft_putendl("");
+	i = 4;
+	while (i--)
 		if (f)
-			pos[i] = setindex(getindex(pos[i], 1) + 1, getindex(pos[i], 2) - getindex(pos[0], 2) - 1);
+			pos[i] = setindex(getindex(pos[i], 1) + 1, getindex(pos[i], 2) - getindex(pos[0], 2) + 1);
 		else
 			pos[i] = setindex(getindex(pos[i], 1), getindex(pos[i], 2) + 1);
-		i++;
-	}
-	i = 0;
-	while (i < 4)
-		if (getindex(pos[i++], 1) > size)
+	//ft_putendl("potato2");
+	while (++i < 4)
+		if (getindex(pos[i], 2) < 1)
+		{
+			incpos(pos, size);
+			break ;
+		}
+	i = 4;
+	while (i--)
+		if (getindex(pos[i], 1) > size)
 			return (0);
 	return (1);
 }
@@ -105,12 +126,17 @@ static char	addones(t_colobj *head, char n, char *pos)
 	t_point		*first;
 	t_colobj	*cur;
 	char		i;
+	char		f;
 
-	i = -1;
+	i = 0;
+	f = 0;
 	cur = head;
-	while (++i < 5)
+	while (i < 5)
 	{
+		//ft_putstr("potato1 ");
 		cur = (t_colobj *)cur->r;
+		if (cur->n == 17)
+			f = 1;
 		if (!i)
 		{
 			if (cur->n == n)
@@ -120,11 +146,14 @@ static char	addones(t_colobj *head, char n, char *pos)
 				i++;
 			}
 		}
-		else
-			if (cur->n == pos[i++ - 1])
-				if (!addone(cur, first))
-					return (0);
+		else if (f && cur->n == pos[i - 1])
+		{
+			if (!addone(cur, first))
+				return (0);
+			i++;
+		}
 	}
+		//ft_putendl("potato2");
 	return (1);
 }
 
@@ -134,10 +163,12 @@ static char	addones(t_colobj *head, char n, char *pos)
 
 char	fillsheet(t_colobj *head, int fd, char size)
 {
-	char	buf[22];
+	char	*buf;
 	char	*pos;
 	char	cur;
 
+	if (!(buf = malloc(sizeof(char) * 22)))
+		return (0);
 	buf[21] = '\0';
 	if (!(pos = malloc(sizeof(char) * 5)))
 		return (0);
@@ -146,12 +177,32 @@ char	fillsheet(t_colobj *head, int fd, char size)
 	read(fd, buf, 21);
 	while (42)
 	{
-		fillpos(buf, pos, size);
-		while (incpos(pos, size))
+		fillpos(buf, pos);
+		while (42)
+		{
+			//ft_putendl("potato1");
+			/*
+			for (int i = 0; i < 4; i++)
+			{
+			ft_putnbr(getindex(pos[i], 1));
+			ft_putchar(' ');
+			ft_putnbr(getindex(pos[i], 2));
+			ft_putstr(" | ");
+			}
+			ft_putchar(cur);
+			ft_putendl("");
+			*/
+			//ft_putendl("potato2");
 			if (!addones(head, cur, pos))
 				return (0);
+			if (!incpos(pos, size))
+				break ;
+			//ft_putendl("");
+		}
+		//ft_putendl("");
+		//ft_putendl("new iter");
 		cur++;
-		if (read(fd, buf, 21) == -1)
+		if (!read(fd, buf, 21))
 			return (1);
 	}
 }
