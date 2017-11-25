@@ -6,7 +6,7 @@
 /*   By: lburlach <lburlach@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/19 17:31:30 by lburlach          #+#    #+#             */
-/*   Updated: 2017/11/24 14:38:40 by lburlach         ###   ########.fr       */
+/*   Updated: 2017/11/25 21:04:49 by lburlach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ static	void	count_size_of_sq(t_params **params, int t_tet)
 
 static	int		fl_read(t_params **params, char *str)
 {
-	char	buf[21];
+	char	buf[22];
 	int		fd;
 	int		t_tet;
 	int		ret;
@@ -121,6 +121,9 @@ static	int		fl_read(t_params **params, char *str)
 	if (flag != 1)
 		return (1);
 	close(fd);
+	ft_putstr("t_tet = ");
+	ft_putnbr(t_tet);
+	ft_putchar('\n');
 	count_size_of_sq(params, t_tet);
 	return (0);
 }
@@ -134,7 +137,7 @@ t_params		*check(char *str)
 	t_params	*params;
 
 	params = (t_params *)malloc(sizeof(t_params));
-	if (fl_read(&params, str))
+	if (!params || fl_read(&params, str))
 		return (NULL);
 	else
 		return (params);
