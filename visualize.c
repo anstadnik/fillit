@@ -6,7 +6,7 @@
 /*   By: astadnik <astadnik@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/22 15:34:33 by astadnik          #+#    #+#             */
-/*   Updated: 2017/11/24 13:00:30 by astadnik         ###   ########.fr       */
+/*   Updated: 2017/11/25 20:07:39 by astadnik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,8 @@ void		visualize(t_colobj *head, char fl)
 	t_point		*rowh;
 	t_colobj	*temp;
 
+	if (!head)
+		return ;
 	printcol(head, fl);
 	col = head->r;
 	while (col->n != 17)

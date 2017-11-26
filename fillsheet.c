@@ -6,7 +6,7 @@
 /*   By: astadnik <astadnik@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/22 11:05:06 by astadnik          #+#    #+#             */
-/*   Updated: 2017/11/24 14:44:41 by astadnik         ###   ########.fr       */
+/*   Updated: 2017/11/25 19:50:27 by astadnik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,16 +49,22 @@ static char		incpos(char *pos, char size)
 {
 	unsigned char	i;
 	unsigned char	f;
+	char			l;
 
 	f = 0;
 	i = 4;
+	l = size + 1;
 	while (i--)
+	{
 		if (getindex(pos[i], 2) + 1 > size)
 			f = 1;
+		if (getindex(pos[i], 2) - 1 < l)
+			l = getindex(pos[i], 2) - 1;
+	}
 	i = 4;
 	while (i--)
 		pos[i] = f ? setindex(getindex(pos[i], 1) + 1,
-				getindex(pos[i], 2) - getindex(pos[0], 2) + 1) :
+				getindex(pos[i], 2) - l) :
 			setindex(getindex(pos[i], 1), getindex(pos[i], 2) + 1);
 	while (++i < 4)
 		if (getindex(pos[i], 2) < 1)
@@ -79,7 +85,7 @@ static t_point	*addone(t_colobj *col, t_point *rowh)
 
 	if (!(one = malloc(sizeof(t_point))))
 		return (NULL);
-	one->l = rowh ? rowh : one;
+	one->l = rowh ? rowh->l : one;
 	one->r = rowh ? rowh : one;
 	if (rowh)
 	{
