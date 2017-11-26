@@ -6,7 +6,7 @@
 /*   By: lburlach <lburlach@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/19 17:23:37 by lburlach          #+#    #+#             */
-/*   Updated: 2017/11/24 12:22:26 by astadnik         ###   ########.fr       */
+/*   Updated: 2017/11/26 17:08:03 by astadnik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,16 @@ typedef struct	s_point
 	void			*d;
 	void			*r;
 }				t_point;
+
+/*
+** Defining a usual list
+*/
+
+typedef struct	s_list
+{
+	void			*data;
+	struct s_list	*next;
+}				t_list;
 
 void			cleansheet(t_colobj **head);
 t_colobj		*createsheet(t_params params, char *path);

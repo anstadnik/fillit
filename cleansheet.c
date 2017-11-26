@@ -6,7 +6,7 @@
 /*   By: astadnik <astadnik@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/19 19:59:32 by astadnik          #+#    #+#             */
-/*   Updated: 2017/11/22 16:48:30 by astadnik         ###   ########.fr       */
+/*   Updated: 2017/11/26 16:58:40 by astadnik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,4 +39,5 @@ void		cleansheet(t_colobj **head)
 		free(temp);
 	}
 	free(*head);
+	*head = NULL;
 }
