@@ -6,7 +6,7 @@
 /*   By: astadnik <astadnik@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/26 11:36:43 by astadnik          #+#    #+#             */
-/*   Updated: 2017/11/26 18:53:14 by astadnik         ###   ########.fr       */
+/*   Updated: 2017/11/26 20:30:24 by lburlach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,34 @@
 /*
 ** Hides the row
 */
+
+static char check(t_colobj *head)
+{
+	t_colobj *tmp;
+
+	tmp = (t_colobj *)head->r;
+	while (tmp != head)
+	{
+		if (tmp->size > 1)
+			return (0);
+		tmp = (t_colobj *)head->r;
+	}
+	return (1);
+}
+
+static void filist_del(t_filist **rez)
+{
+	t_filist *tmp;
+	t_filist *next;
+
+	tmp = *rez;
+	while (tmp)
+	{
+		next = tmp->next;
+		free(tmp);
+		tmp = next;
+	}
+}
 
 static void	hide(t_point *p)
 {
@@ -117,4 +145,3 @@ char	solve(char **sol, t_colobj *head, char size)
 	free(cur);
 	return (r);
 }
-
