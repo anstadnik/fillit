@@ -61,4 +61,6 @@ char			getindex(char n, char i);
 char			setindex(char n1, char n2);
 char			fillsheet(t_colobj *head, int fd, char size);
 void			visualize(t_colobj *head, char fl);
+int				ft_sqrt(int num);
+int				check_t(char *buf, int count);
 #endif

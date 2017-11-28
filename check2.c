@@ -6,7 +6,7 @@
 /*   By: lburlach <lburlach@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/21 17:11:28 by lburlach          #+#    #+#             */
-/*   Updated: 2017/11/23 19:23:20 by lburlach         ###   ########.fr       */
+/*   Updated: 2017/11/25 20:56:04 by lburlach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,13 +37,13 @@ int		ft_sqrt(int num)
 
 int		check_t(char *buf, int count)
 {
-	if ((count < 12) && (buf[count + 5] == '#' && (buf[count + 6] == '#'
+	if ((count < 11) && (buf[count + 5] == '#' && (buf[count + 6] == '#'
 				|| buf[count + 4] == '#') && buf[count + 10] == '#'))
 		return (1);
-	else if ((count < 16) && (buf[count + 1] == '#' && buf[count + 2] == '#'
+	else if ((count < 15) && (buf[count + 1] == '#' && buf[count + 2] == '#'
 				&& buf[count + 6] == '#'))
 		return (1);
-	else if ((count < 16) && (buf[count + 4] == '#' && buf[count + 5] == '#'
+	else if ((count < 15) && (buf[count + 4] == '#' && buf[count + 5] == '#'
 				&& buf[count + 6] == '#'))
 		return (1);
 	else
