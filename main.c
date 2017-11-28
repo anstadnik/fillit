@@ -6,32 +6,32 @@
 /*   By: astadnik <astadnik@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/19 18:43:39 by astadnik          #+#    #+#             */
-/*   Updated: 2017/11/28 15:39:39 by astadnik         ###   ########.fr       */
+/*   Updated: 2017/11/28 16:30:47 by astadnik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
 
-int	main(void)
+int	main(int ac, char **av)
 {
 	t_colobj	*head;
 	t_params	p;
 	char		f;
 
-//	ft_putendl("");
-//	ft_putendl("ok_03.uu");
-	p.size = 7;
-	p.amount = 10;
-	head = createsheet(p, "ok_10");
+	if (ac != 2 || !check(av[1]))
+	{
+		ft_putendl("error");
+		return (0);
+	}
+	p = *check(av[1]);
+	head = createsheet(p, av[1]);
 //	visualize(head, 0, 1, NULL);
 	f = solve(head, p.size);
 	while (!f)
 	{
 		p.size++;
-		ft_putnbr(p.size);
-		ft_putendl("");
 		cleansheet(&head);
-		head = createsheet(p, "ok_10");
+		head = createsheet(p, av[1]);
 //		visualize(head, 0, 1, NULL);
 		f = solve(head, p.size);
 	}

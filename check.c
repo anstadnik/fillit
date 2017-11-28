@@ -6,7 +6,7 @@
 /*   By: lburlach <lburlach@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/19 17:31:30 by lburlach          #+#    #+#             */
-/*   Updated: 2017/11/25 21:04:49 by lburlach         ###   ########.fr       */
+/*   Updated: 2017/11/28 16:24:02 by astadnik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,9 +121,6 @@ static	int		fl_read(t_params **params, char *str)
 	if (flag != 1)
 		return (1);
 	close(fd);
-	ft_putstr("t_tet = ");
-	ft_putnbr(t_tet);
-	ft_putchar('\n');
 	count_size_of_sq(params, t_tet);
 	return (0);
 }

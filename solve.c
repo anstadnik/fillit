@@ -6,13 +6,13 @@
 /*   By: astadnik <astadnik@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/26 11:36:43 by astadnik          #+#    #+#             */
-/*   Updated: 2017/11/28 15:49:00 by astadnik         ###   ########.fr       */
+/*   Updated: 2017/11/28 16:21:21 by astadnik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
 
-static char check(t_colobj *head, t_colobj *last)
+static char check_h(t_colobj *head, t_colobj *last)
 {
 	t_colobj *tmp;
 
@@ -68,7 +68,7 @@ static char	solverec(char size, t_colobj *head, t_colobj *last, t_filist **rez)
 			print(*rez, size);
 			return (1);
 		}
-		if (check(head, last))
+		if (check_h(head, last))
 		{
 			if ((r = solverec(size, head, last, rez)))
 					return (r);
