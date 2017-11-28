@@ -6,7 +6,7 @@
 /*   By: lburlach <lburlach@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/19 17:23:37 by lburlach          #+#    #+#             */
-/*   Updated: 2017/11/25 19:55:19 by astadnik         ###   ########.fr       */
+/*   Updated: 2017/11/28 12:14:14 by astadnik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,12 +55,26 @@ typedef struct	s_point
 	void			*r;
 }				t_point;
 
+/*
+** Defining a usual list
+*/
+
+typedef struct	s_filist
+{
+	t_point			*data;
+	struct s_filist	*next;
+}				t_filist;
+
 void			cleansheet(t_colobj **head);
 t_colobj		*createsheet(t_params params, char *path);
 char			getindex(char n, char i);
 char			setindex(char n1, char n2);
 char			fillsheet(t_colobj *head, int fd, char size);
-void			visualize(t_colobj *head, char fl);
+void			visualize(t_colobj *head, char f1, char f2, t_colobj *last);
+char			solve(t_colobj *head, char size);
+void			print(t_filist *rez, char size);
+char			del(t_point *p, t_filist **rez);
+void			restore(t_filist **rez);
 int				ft_sqrt(int num);
 int				check_t(char *buf, int count);
 #endif

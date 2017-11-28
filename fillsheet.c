@@ -6,7 +6,7 @@
 /*   By: astadnik <astadnik@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/22 11:05:06 by astadnik          #+#    #+#             */
-/*   Updated: 2017/11/25 19:50:27 by astadnik         ###   ########.fr       */
+/*   Updated: 2017/11/28 15:31:30 by astadnik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,28 +49,24 @@ static char		incpos(char *pos, char size)
 {
 	unsigned char	i;
 	unsigned char	f;
-	char			l;
 
 	f = 0;
 	i = 4;
-	l = size + 1;
 	while (i--)
-	{
 		if (getindex(pos[i], 2) + 1 > size)
 			f = 1;
-		if (getindex(pos[i], 2) - 1 < l)
-			l = getindex(pos[i], 2) - 1;
-	}
 	i = 4;
 	while (i--)
 		pos[i] = f ? setindex(getindex(pos[i], 1) + 1,
-				getindex(pos[i], 2) - l) :
+				getindex(pos[i], 2) - getindex(pos[0], 2) + 1) :
 			setindex(getindex(pos[i], 1), getindex(pos[i], 2) + 1);
 	while (++i < 4)
 		if (getindex(pos[i], 2) < 1)
 		{
-			incpos(pos, size);
-			break ;
+			i = 4;
+			while (i--)
+				pos[i] = setindex(getindex(pos[i], 1), getindex(pos[i], 2) + 1);
+			i = -1;
 		}
 	i = 4;
 	while (i--)
@@ -125,12 +121,12 @@ static char		addones(t_colobj *head, char n, char *pos)
 			f = 1;
 		if (!i)
 		{
-			if (cur->n == n)
-				if (!(first = addone(cur, NULL)) || !++i)
+			if (cur->n == n && ++i)
+				if (!(first = addone(cur, NULL)))
 					return (0);
 		}
-		else if (f && cur->n == pos[i - 1])
-			if (!addone(cur, first) || !++i)
+		else if (f && cur->n == pos[i - 1] && ++i)
+			if (!addone(cur, first))
 				return (0);
 	}
 	return (1);
