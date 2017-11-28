@@ -6,7 +6,7 @@
 /*   By: astadnik <astadnik@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/19 18:43:39 by astadnik          #+#    #+#             */
-/*   Updated: 2017/11/26 13:52:53 by astadnik         ###   ########.fr       */
+/*   Updated: 2017/11/28 09:41:18 by astadnik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,14 +21,24 @@ int	main(void)
 
 	sol = NULL;
 	ft_putendl("");
-	ft_putendl("ok_03.uu");
-	p.size = 10;
-	p.amount = 25;
-	head = createsheet(p, "ok_03.uu");
-	//visualize(head, 0);
+	ft_putendl("ok_01.uu");
+	p.size = 4;
+	p.amount = 2;
+	ft_putnbr(p.size);
+	head = createsheet(p, "ok_01.uu");
+	visualize(head, 0);
 	f = solve(&sol, head, p.size);
 	while (!f)
-		f = solve(&sol, head, ++(p.size));
+	{
+		p.size++;
+		ft_putnbr(p.size);
+		sol = NULL;
+		visualize(head, 0);
+		cleansheet(&head);
+		head = createsheet(p, "ok_01.uu");
+		visualize(head, 0);
+		f = solve(&sol, head, p.size);
+	}
 	if (f == 1)
 	{
 		print(sol);

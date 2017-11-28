@@ -6,7 +6,7 @@
 /*   By: lburlach <lburlach@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/19 17:23:37 by lburlach          #+#    #+#             */
-/*   Updated: 2017/11/26 18:41:43 by astadnik         ###   ########.fr       */
+/*   Updated: 2017/11/28 09:38:55 by astadnik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,5 +71,8 @@ char			getindex(char n, char i);
 char			setindex(char n1, char n2);
 char			fillsheet(t_colobj *head, int fd, char size);
 void			visualize(t_colobj *head, char fl);
-char    		solve(char **sol, t_colobj *head, char size);
+char			solve(char **sol, t_colobj *head, char size);
+void			print(char *sheet);
+char			del(t_point *p, t_filist **rez);
+void			restore(t_filist **rez);
 #endif

@@ -6,7 +6,7 @@
 /*   By: astadnik <astadnik@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/22 11:05:06 by astadnik          #+#    #+#             */
-/*   Updated: 2017/11/24 14:44:41 by astadnik         ###   ########.fr       */
+/*   Updated: 2017/11/28 09:16:49 by astadnik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ static t_point	*addone(t_colobj *col, t_point *rowh)
 
 	if (!(one = malloc(sizeof(t_point))))
 		return (NULL);
-	one->l = rowh ? rowh : one;
+	one->l = rowh ? rowh->l : one;
 	one->r = rowh ? rowh : one;
 	if (rowh)
 	{
@@ -119,12 +119,12 @@ static char		addones(t_colobj *head, char n, char *pos)
 			f = 1;
 		if (!i)
 		{
-			if (cur->n == n)
-				if (!(first = addone(cur, NULL)) || !++i)
+			if (cur->n == n && ++i)
+				if (!(first = addone(cur, NULL)))
 					return (0);
 		}
-		else if (f && cur->n == pos[i - 1])
-			if (!addone(cur, first) || !++i)
+		else if (f && cur->n == pos[i - 1] && ++i)
+			if (!addone(cur, first))
 				return (0);
 	}
 	return (1);

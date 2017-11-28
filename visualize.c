@@ -6,11 +6,24 @@
 /*   By: astadnik <astadnik@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/22 15:34:33 by astadnik          #+#    #+#             */
-/*   Updated: 2017/11/24 13:00:30 by astadnik         ###   ########.fr       */
+/*   Updated: 2017/11/28 09:37:28 by astadnik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
+
+void		print(char *sheet)
+{
+	unsigned char	i;
+
+	i = 0;
+	while (sheet[++i])
+	{
+		if (!((i - 1) % sheet[0]))
+			ft_putchar('\n');
+		ft_putchar(sheet[i]);
+	}
+}
 
 static void	printsize(t_colobj *head)
 {
