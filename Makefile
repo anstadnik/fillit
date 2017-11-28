@@ -1,25 +1,28 @@
 .PHONY: clean, fclean, re
 
 CC=gcc
-CFLAGS= -Wall -Wextra -Werror 
+CFLAGS= -Wall -Wextra -Werror #-Wconversion
 OBJP=./obj/
 LIBP=libft/
 LIB=libft.a
 NAME=fillit
-FILES=main.c
+FILES=createsheet.c cleansheet.c fillsheet.c visualize.c index.c main.c solve.c stack.c check.c check2.c
 OBJS = $(FILES:.c=.o)
 
 all: $(NAME)
 
-$(NAME): $(addprefix $(OLIB), $(OBJS))
+$(NAME): $(addprefix $(OBJP), $(OBJS))
 	$(MAKE) -C $(LIBP)
-	$(CC) $(CFLAGS) -o $@ -I$(LIBP) $(addprefix $(LIBP), $(LIB)) $^
+	$(CC) $(CFLAGS) -o $@ $(addprefix $(LIBP), $(LIB)) $^
 
-$(addprefix $(OLIB), %.o): %.c
-	$(CC) $(CFLAGS) -c -I$(LIBP) -o $@ $<
+debug: 
+	$(CC) $(CFLAGS) -g $(LIBP)*.c $(FILES) -o $(NAME)
+
+$(addprefix $(OBJP), %.o): %.c
+	$(CC) $(CFLAGS) -c -o $@ $<
 
 clean:
-	rm -f $(addprefix $(OLIB), $(OBJS))
+	rm -f $(addprefix $(OBJP), $(OBJS))
 	$(MAKE) -C $(LIBP) clean
 
 fclean: clean

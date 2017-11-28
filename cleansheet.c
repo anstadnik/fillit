@@ -1,40 +1,43 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   cleansheet.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: astadnik <astadnik@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/19 18:43:39 by astadnik          #+#    #+#             */
-/*   Updated: 2017/11/28 16:30:47 by astadnik         ###   ########.fr       */
+/*   Created: 2017/11/19 19:59:32 by astadnik          #+#    #+#             */
+/*   Updated: 2017/11/26 16:58:40 by astadnik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+/*
+** Frees memory in sheet
+*/
+
 #include "fillit.h"
 
-int	main(int ac, char **av)
+void		cleansheet(t_colobj **head)
 {
-	t_colobj	*head;
-	t_params	p;
-	char		f;
+	void	*curc;
+	void	*curp;
+	void	*temp;
 
-	if (ac != 2 || !check(av[1]))
+	if (!head || !*head)
+		return ;
+	curc = (*head)->r;
+	while (curc != *head)
 	{
-		ft_putendl("error");
-		return (0);
+		curp = ((t_colobj*)curc)->d;
+		while (curp != curc)
+		{
+			temp = curp;
+			curp = ((t_point *)curp)->d;
+			free(temp);
+		}
+		temp = curc;
+		curc = ((t_colobj *)curc)->r;
+		free(temp);
 	}
-	p = *check(av[1]);
-	head = createsheet(p, av[1]);
-//	visualize(head, 0, 1, NULL);
-	f = solve(head, p.size);
-	while (!f)
-	{
-		p.size++;
-		cleansheet(&head);
-		head = createsheet(p, av[1]);
-//		visualize(head, 0, 1, NULL);
-		f = solve(head, p.size);
-	}
-	cleansheet(&head);
-	return (0);
+	free(*head);
+	*head = NULL;
 }
