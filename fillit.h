@@ -6,7 +6,7 @@
 /*   By: lburlach <lburlach@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/19 17:23:37 by lburlach          #+#    #+#             */
-/*   Updated: 2017/11/27 20:01:57 by lburlach         ###   ########.fr       */
+/*   Updated: 2017/11/28 16:15:57 by lburlach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,4 +63,6 @@ char			fillsheet(t_colobj *head, int fd, char size);
 void			visualize(t_colobj *head, char fl);
 int				ft_sqrt(int num);
 int				check_t(char *buf, int count);
+t_params		*check(char *str)
+
 #endif
