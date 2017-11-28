@@ -6,7 +6,7 @@
 /*   By: astadnik <astadnik@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/26 11:36:43 by astadnik          #+#    #+#             */
-/*   Updated: 2017/11/28 14:20:36 by astadnik         ###   ########.fr       */
+/*   Updated: 2017/11/28 15:49:00 by astadnik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,61 +47,22 @@ static char	solverec(char size, t_colobj *head, t_colobj *last, t_filist **rez)
 	char		r;
 
 	cur = head->r;
-			/*
-	ft_putendl("");
-	ft_putstr("potato");
-	ft_putchar(cur->n);
-	ft_putchar(' ');
-	ft_putchar(((t_colobj *)head->r)->n);
-	ft_putendl("");
-			*/
 	p = cur->d;
 	while ((void *)p != (void *)cur)
 	{
-			/*
-	ft_putendl("");
-	ft_putstr("potato1");
-	ft_putchar(cur->n);
-	ft_putchar(' ');
-	ft_putchar(((t_colobj *)head->r)->n);
-	ft_putendl("");
-			*/
 		if (!del(p, rez))
 		{
 			filist_del(rez);
 			return (1);
 		}
-		if (cur != last)
-			//visualize(head, 0, 0, last);
-			/*
-	ft_putendl("");
-	ft_putstr("potato2");
-	ft_putchar(cur->n);
-	ft_putchar(' ');
-	ft_putchar(((t_colobj *)head->r)->n);
-	ft_putendl("");
+		/*
+		if (cur->n == 'A')
+			ft_putendl(".");
+		if (cur->n == 'B')
+			ft_putstr(".");
+		if (cur->n == 'C')
+			ft_putstr(" ");
 			*/
-		if (p != cur->d)
-		{
-//			visualize(head, 0);
-			/*
-			ft_putendl("");
-			ft_putchar(((t_colobj *)cur->l)->n);
-			ft_putchar(' ');
-			ft_putchar(cur->n);
-			ft_putchar(' ');
-			ft_putchar(((t_colobj *)cur->r)->n);
-			ft_putendl("");
-			ft_putchar(((t_colobj *)head->r)->n);
-			ft_putendl("");
-			ft_putendl("");
-			ft_putendl("");
-			ft_putchar(cur->n);
-			ft_putchar(' ');
-			ft_putchar(((t_colobj *)head->r)->n);
-			ft_putendl("");
-			*/
-		}
 		if (cur == last)
 		{
 			print(*rez, size);
@@ -109,17 +70,6 @@ static char	solverec(char size, t_colobj *head, t_colobj *last, t_filist **rez)
 		}
 		if (check(head, last))
 		{
-			/*
-			ft_putendl("");
-			ft_putendl("");
-			ft_putendl("");
-			ft_putendl("");
-			ft_putstr("POTATO");
-			ft_putendl("");
-			ft_putendl("");
-			ft_putendl("");
-			ft_putendl("");
-			*/
 			if ((r = solverec(size, head, last, rez)))
 					return (r);
 		}

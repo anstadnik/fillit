@@ -6,7 +6,7 @@
 /*   By: astadnik <astadnik@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/22 11:05:06 by astadnik          #+#    #+#             */
-/*   Updated: 2017/11/28 14:22:10 by astadnik         ###   ########.fr       */
+/*   Updated: 2017/11/28 15:31:30 by astadnik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,52 +149,13 @@ char			fillsheet(t_colobj *head, int fd, char size)
 	while (42)
 	{
 		fillpos(buf, pos);
-		/*if (cur == 'K')
-		{
-			ft_putendl("POTATO");
-			for (int i = 0; i < 4; i++)
-			{
-				ft_putnbr(getindex(pos[i], 1));
-				ft_putchar(' ');
-				ft_putnbr(getindex(pos[i], 2));
-				ft_putendl("");
-			}
-		}
-		*/
 		while (42)
 		{
 			if (!addones(head, cur, pos))
 				return (0);
-			/*
-			if (cur == 'K')
-			{
-				ft_putendl("POTATO1");
-				for (int i = 0; i < 4; i++)
-				{
-					ft_putnbr(getindex(pos[i], 1));
-					ft_putchar(' ');
-					ft_putnbr(getindex(pos[i], 2));
-					ft_putendl("");
-				}
-			}	
-			*/
 			if (!incpos(pos, size))
 				break ;
-			/*
-			if (cur == 'K')
-			{
-				ft_putendl("POTATO2");
-				for (int i = 0; i < 4; i++)
-				{
-					ft_putnbr(getindex(pos[i], 1));
-					ft_putchar(' ');
-					ft_putnbr(getindex(pos[i], 2));
-					ft_putendl("");
-				}
-			}	
-			*/
 		}
-		//visualize(head, 0, 1, NULL);
 		cur++;
 		if (!read(fd, buf, 21))
 			return (1);

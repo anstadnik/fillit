@@ -6,7 +6,7 @@
 /*   By: astadnik <astadnik@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/19 18:43:39 by astadnik          #+#    #+#             */
-/*   Updated: 2017/11/28 09:41:18 by astadnik         ###   ########.fr       */
+/*   Updated: 2017/11/28 15:39:39 by astadnik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,33 +16,24 @@ int	main(void)
 {
 	t_colobj	*head;
 	t_params	p;
-	char		*sol;
 	char		f;
 
-	sol = NULL;
-	ft_putendl("");
-	ft_putendl("ok_01.uu");
-	p.size = 4;
-	p.amount = 2;
-	ft_putnbr(p.size);
-	head = createsheet(p, "ok_01.uu");
-	visualize(head, 0);
-	f = solve(&sol, head, p.size);
+//	ft_putendl("");
+//	ft_putendl("ok_03.uu");
+	p.size = 7;
+	p.amount = 10;
+	head = createsheet(p, "ok_10");
+//	visualize(head, 0, 1, NULL);
+	f = solve(head, p.size);
 	while (!f)
 	{
 		p.size++;
 		ft_putnbr(p.size);
-		sol = NULL;
-		visualize(head, 0);
+		ft_putendl("");
 		cleansheet(&head);
-		head = createsheet(p, "ok_01.uu");
-		visualize(head, 0);
-		f = solve(&sol, head, p.size);
-	}
-	if (f == 1)
-	{
-		print(sol);
-		free(sol);
+		head = createsheet(p, "ok_10");
+//		visualize(head, 0, 1, NULL);
+		f = solve(head, p.size);
 	}
 	cleansheet(&head);
 	return (0);
