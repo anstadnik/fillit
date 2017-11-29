@@ -6,7 +6,7 @@
 /*   By: lburlach <lburlach@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/19 17:31:30 by lburlach          #+#    #+#             */
-/*   Updated: 2017/11/29 17:06:49 by lburlach         ###   ########.fr       */
+/*   Updated: 2017/11/29 18:37:43 by lburlach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,9 @@ static	int		second_check_n_count(char *buf, t_params *params, int *t_tet)
 		{
 			if (check_t(buf, count))
 				(*t_tet)++;
+			if ((buf[count + 1] == '#' && buf[count + 2] == '#' && buf[count + 3] == '#') 
+					|| (buf[count + 5] == '#' && buf[count + 10] == '#' && buf[count + 15] == '#'))
+				params->max_l = 4;
 			if (buf[count + 1] == '#')
 				t_count++;
 			if (buf[count + 5] == '#')
@@ -83,6 +86,10 @@ static	int		second_check_n_count(char *buf, t_params *params, int *t_tet)
 		if ((!((count + 1) % 5) || count == 20) && buf[count] != '\n')
 			return (0);
 	}
+/*	ft_putendl("max_l = ");
+	ft_putnbr(params->max_l);
+	ft_putchar('\n');
+	*/
 	params->amount++;
 	return (t_count < 6) ? 0 : 1;
 }
@@ -98,6 +105,8 @@ static	void	count_size_of_sq(t_params *params, int t_tet)
 		params->size = ft_sqrt((params->amount) * 4 + 2);
 	else
 		params->size = ft_sqrt(4 * params->amount);
+	if (params->size < params->max_l)
+		params->size = params->max_l;
 }
 
 /*
@@ -117,6 +126,7 @@ t_params		*check(char *str)
 				(fd = open(str, O_RDONLY)) == -1)
 		return (NULL);
 	params->amount = 0;
+	params->max_l = 0;
 	while ((ret = read(fd, &buf, 21)))
 	{
 		if (ret < 20 || ret > 21 || !second_check_n_count(buf, params, &t_tet))

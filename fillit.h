@@ -6,7 +6,7 @@
 /*   By: lburlach <lburlach@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/19 17:23:37 by lburlach          #+#    #+#             */
-/*   Updated: 2017/11/28 16:19:13 by astadnik         ###   ########.fr       */
+/*   Updated: 2017/11/29 17:14:56 by lburlach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ typedef	struct	s_params
 {
 	char	size;
 	char	amount;
+	char	max_l;
 }				t_params;
 
 /*
