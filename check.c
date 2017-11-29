@@ -6,7 +6,7 @@
 /*   By: lburlach <lburlach@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/19 17:31:30 by lburlach          #+#    #+#             */
-/*   Updated: 2017/11/29 15:42:37 by astadnik         ###   ########.fr       */
+/*   Updated: 2017/11/29 17:06:49 by lburlach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ static	int		second_check_n_count(char *buf, t_params *params, int *t_tet)
 	int	t_count;
 
 	count = 0;
-	t_count = 0;
+	t_count = 1;
 	while (buf[count])
 	{
 		if (!(buf[count] == '.' || buf[count] == '#' || buf[count] == '\n'))
@@ -70,21 +70,21 @@ static	int		second_check_n_count(char *buf, t_params *params, int *t_tet)
 		{
 			if (check_t(buf, count))
 				(*t_tet)++;
-			if ((buf[count + 1] == '#' || buf[count + 5] == '#') && count == 0)
+			if (buf[count + 1] == '#')
 				t_count++;
-			else if ((buf[count - 1] == '#' || buf[count + 1] == '#'
-					|| buf[count + 5] == '#') && count < 4)
+			if (buf[count + 5] == '#')
 				t_count++;
-			else if (buf[count + 1] == '#' || buf[count - 1] == '#'
-					|| buf[count + 5] == '#' || buf[count - 5] == '#')
+			if (buf[count - 1] == '#')
 				t_count++;
-		}
+			if (buf[count - 5] == '#')
+				t_count++;
+		}	
 		count++;
 		if ((!((count + 1) % 5) || count == 20) && buf[count] != '\n')
 			return (0);
 	}
 	params->amount++;
-	return (t_count != 4) ? 0 : 1;
+	return (t_count < 6) ? 0 : 1;
 }
 
 /*
@@ -94,10 +94,10 @@ static	int		second_check_n_count(char *buf, t_params *params, int *t_tet)
 
 static	void	count_size_of_sq(t_params *params, int t_tet)
 {
-	if (t_tet % 2 == 1)
+	if (t_tet % 2)
 		params->size = ft_sqrt((params->amount) * 4 + 2);
 	else
-		params->size = 2 * ft_sqrt(params->amount);
+		params->size = ft_sqrt(4 * params->amount);
 }
 
 /*
