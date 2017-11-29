@@ -6,37 +6,35 @@
 /*   By: astadnik <astadnik@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/19 18:43:39 by astadnik          #+#    #+#             */
-/*   Updated: 2017/11/24 12:23:29 by astadnik         ###   ########.fr       */
+/*   Updated: 2017/11/29 15:14:10 by astadnik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
 
-int	main(void)
+int	main(int ac, char **av)
 {
 	t_colobj	*head;
-	t_params	p;
+	t_params	*p;
+	char		f;
 
-	ft_putendl("");
-	ft_putendl("ok_00.uu");
-	p.size = 4;
-	p.amount = 4;
-	head = createsheet(p, "ok_00.uu");
-	visualize(head, 1);
-	cleansheet(&head);
-	ft_putendl("");
-	ft_putendl("ok_01.uu");
-	p.size = 4;
-	p.amount = 2;
-	head = createsheet(p, "ok_01.uu");
-	visualize(head, 1);
-	cleansheet(&head);
-	ft_putendl("");
-	ft_putendl("ok_03.uu");
-	p.size = 6;
-	p.amount = 8;
-	head = createsheet(p, "ok_03.uu");
-	visualize(head, 0);
+	if (ac != 2 || !(p = check(av[1])))
+	{
+		ft_putendl("error");
+		return (0);
+	}
+	head = createsheet(*p, av[1]);
+//	visualize(head, 0, 1, NULL);
+	f = solve(head, p->size);
+	while (!f)
+	{
+		p->size++;
+		cleansheet(&head);
+		head = createsheet(*p, av[1]);
+//		visualize(head, 0, 1, NULL);
+		f = solve(head, p->size);
+	}
+	free(p);
 	cleansheet(&head);
 	return (0);
 }

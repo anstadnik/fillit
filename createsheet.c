@@ -6,7 +6,7 @@
 /*   By: astadnik <astadnik@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/19 19:59:22 by astadnik          #+#    #+#             */
-/*   Updated: 2017/11/24 12:14:58 by astadnik         ###   ########.fr       */
+/*   Updated: 2017/11/28 12:56:02 by astadnik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,7 @@ t_colobj		*createsheet(t_params params, char *path)
 	int			fd;
 
 	fd = -1;
+	head = NULL;
 	if (!path || !params.amount || !params.size
 			|| (fd = open(path, O_RDONLY)) == -1
 			|| !(head = makehead())
