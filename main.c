@@ -6,7 +6,7 @@
 /*   By: astadnik <astadnik@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/19 18:43:39 by astadnik          #+#    #+#             */
-/*   Updated: 2017/11/30 19:47:14 by astadnik         ###   ########.fr       */
+/*   Updated: 2017/11/30 19:57:19 by astadnik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,14 +24,12 @@ int	main(int ac, char **av)
 		return (0);
 	}
 	head = createsheet(*p, av[1]);
-//	visualize(head, 1, 1, NULL);
 	f = solve(head, p->size);
 	while (!f)
 	{
 		p->size++;
 		cleansheet(&head);
 		head = createsheet(*p, av[1]);
-//		visualize(head, 0, 1, NULL);
 		f = solve(head, p->size);
 	}
 	free(p);
