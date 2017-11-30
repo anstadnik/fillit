@@ -6,30 +6,13 @@
 /*   By: lburlach <lburlach@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/19 17:31:30 by lburlach          #+#    #+#             */
-/*   Updated: 2017/11/30 17:21:25 by lburlach         ###   ########.fr       */
+/*   Updated: 2017/11/30 19:55:20 by astadnik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
 #include <sys/stat.h>
 #include <sys/types.h>
-
-/*
-** It simply search the square root of the give number. Returns bigger root
-** than needed in case it can't find precise answer.
-*/
-
-int		ft_sqrt(int num)
-{
-	int i;
-
-	i = 0;
-	if (num < 0)
-		return (0);
-	while (i * i < num)
-		i++;
-	return (i);
-}
 
 /*
 ** This func checks whether the tetrimino is T_shaped.
@@ -50,6 +33,16 @@ int		check_t(char *buf, int count)
 		return (0);
 }
 
+static char	minsize(char first, char last)
+{
+	char	max;
+
+	max = (last + 1) % 5 - getindex(first, 2);
+	max = max > 0 ? max : -max;
+	return (max > (last + 1) / 5 - getindex(first, 1) ? 
+		max + 1 : (last + 1) / 5 - getindex(first, 1) + 1);
+}
+
 /*
 ** Second step of checking. It checks tetriminos themselves.
 ** Also, function counts the number of tetriminos
@@ -60,6 +53,7 @@ static	int		check_n_count(char *buf, t_params *params, int *t_tet)
 	int count;
 	int	t_count;
 	int r;
+	char	first;
 
 	count = 0;
 	t_count = 1;
@@ -70,12 +64,13 @@ static	int		check_n_count(char *buf, t_params *params, int *t_tet)
 			return (0);
 		if (buf[count] == '#')
 		{
-			r++;
+			if (!r++)
+				first = setindex((count + 1) / 5, (count + 1) % 5);
+			if (r == 4)
+				params->size = params->size > minsize(first, count) ? params->size :
+					minsize(first, count);
 			if (check_t(buf, count))
 				(*t_tet)++;
-			if ((buf[count + 1] == '#' && buf[count + 2] == '#' && buf[count + 3] == '#') 
-					|| (buf[count + 5] == '#' && buf[count + 10] == '#' && buf[count + 15] == '#'))
-				params->max_l = 4;
 			if (buf[count + 1] == '#')
 				t_count++;
 			if (buf[count + 5] == '#')
@@ -89,12 +84,8 @@ static	int		check_n_count(char *buf, t_params *params, int *t_tet)
 		if ((!((count + 1) % 5) || count == 20) && buf[count] != '\n')
 			return (0);
 	}
-/*	ft_putendl("max_l = ");
-	ft_putnbr(params->max_l);
-	ft_putchar('\n');
-	*/
 	params->amount++;
-	return ((t_count < 6) || r!= 4) ? 0 : 1;
+	return ((t_count < 6) || r != 4) ? 0 : 1;
 }
 
 /*
@@ -104,12 +95,13 @@ static	int		check_n_count(char *buf, t_params *params, int *t_tet)
 
 static	void	count_size_of_sq(t_params *params, int t_tet)
 {
+	char	size;
+
 	if (t_tet % 2)
-		params->size = ft_sqrt((params->amount) * 4 + 2);
+		size = ft_sqrt((params->amount) * 4 + 2);
 	else
-		params->size = ft_sqrt(4 * params->amount);
-	if (params->size < params->max_l)
-		params->size = params->max_l;
+		size = ft_sqrt(4 * params->amount);
+	params->size = params->size > size ? params->size : size;
 }
 
 /*
@@ -129,7 +121,7 @@ t_params		*check(char *str)
 				(fd = open(str, O_RDONLY)) == -1)
 		return (NULL);
 	params->amount = 0;
-	params->max_l = 0;
+	params->size = 0;
 	while ((ret = read(fd, &buf, 21)))
 	{
 		if (ret == 20 && params->amount == 0)
