@@ -6,7 +6,7 @@
 /*   By: lburlach <lburlach@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/19 17:31:30 by lburlach          #+#    #+#             */
-/*   Updated: 2017/11/29 20:59:13 by astadnik         ###   ########.fr       */
+/*   Updated: 2017/11/30 17:21:25 by lburlach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,15 +59,18 @@ static	int		check_n_count(char *buf, t_params *params, int *t_tet)
 {
 	int count;
 	int	t_count;
+	int r;
 
 	count = 0;
 	t_count = 1;
+	r = 0;
 	while (buf[count])
 	{
 		if (!(buf[count] == '.' || buf[count] == '#' || buf[count] == '\n'))
 			return (0);
 		if (buf[count] == '#')
 		{
+			r++;
 			if (check_t(buf, count))
 				(*t_tet)++;
 			if ((buf[count + 1] == '#' && buf[count + 2] == '#' && buf[count + 3] == '#') 
@@ -91,7 +94,7 @@ static	int		check_n_count(char *buf, t_params *params, int *t_tet)
 	ft_putchar('\n');
 	*/
 	params->amount++;
-	return (t_count < 6) ? 0 : 1;
+	return ((t_count < 6) || r!= 4) ? 0 : 1;
 }
 
 /*
@@ -129,6 +132,8 @@ t_params		*check(char *str)
 	params->max_l = 0;
 	while ((ret = read(fd, &buf, 21)))
 	{
+		if (ret == 20 && params->amount == 0)
+			buf[20] = '\n';
 		if (ret < 20 || ret > 21 || !check_n_count(buf, params, &t_tet))
 			return (NULL);
 		if (ret == 20)
