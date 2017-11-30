@@ -1,14 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   index.c                                            :+:      :+:    :+:   */
+/*   addit.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: astadnik <astadnik@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/22 11:21:57 by astadnik          #+#    #+#             */
-/*   Updated: 2017/11/28 13:44:09 by astadnik         ###   ########.fr       */
+/*   Created: 2017/11/30 18:02:01 by astadnik          #+#    #+#             */
+/*   Updated: 2017/11/30 19:05:45 by astadnik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+/*
+** It simply search the square root of the give number. Returns bigger root
+** than needed in case it can't find precise answer.
+*/
+
+int		ft_sqrt(int num)
+{
+	int i;
+
+	i = 0;
+	if (num < 0)
+		return (0);
+	while (i * i < num)
+		i++;
+	return (i);
+}
 
 /*
 ** Returns index of point according to given name and index's index

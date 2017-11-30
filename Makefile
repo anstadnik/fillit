@@ -6,7 +6,7 @@ OBJP=./obj/
 LIBP=libft/
 LIB=libft.a
 NAME=fillit
-FILES=createsheet.c cleansheet.c fillsheet.c visualize.c index.c main.c solve.c stack.c check.c check2.c
+FILES=createsheet.c cleansheet.c fillsheet.c visualize.c addit.c main.c solve.c stack.c check.c
 OBJS = $(FILES:.c=.o)
 
 all: $(NAME)

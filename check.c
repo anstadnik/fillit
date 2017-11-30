@@ -6,7 +6,7 @@
 /*   By: lburlach <lburlach@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/19 17:31:30 by lburlach          #+#    #+#             */
-/*   Updated: 2017/11/28 16:24:02 by astadnik         ###   ########.fr       */
+/*   Updated: 2017/11/30 20:32:28 by astadnik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,35 +15,33 @@
 #include <sys/types.h>
 
 /*
-** It's the first step of checking our input. It checks whether all symbols
-** in file are appropriate.
+** This func checks whether the tetrimino is T_shaped.
 */
 
-static	int		first_check(char *buf)
+int				check_t(char *buf, int count)
 {
-	int count;
-	int t_count;
+	if ((count < 11) && (buf[count + 5] == '#' && (buf[count + 6] == '#'
+				|| buf[count + 4] == '#') && buf[count + 10] == '#'))
+		return (1);
+	else if ((count < 15) && (buf[count + 1] == '#' && buf[count + 2] == '#'
+				&& buf[count + 6] == '#'))
+		return (1);
+	else if ((count < 15) && (buf[count + 4] == '#' && buf[count + 5] == '#'
+				&& buf[count + 6] == '#'))
+		return (1);
+	else
+		return (0);
+}
 
-	count = 0;
-	t_count = 0;
-	if (ft_strlen(buf) != 21)
-		return (0);
-	if (buf[4] != '\n' || buf[9] != '\n' || buf[14] != '\n'
-			|| buf[19] != '\n' || buf[20] != '\n')
-		return (0);
-	while (1)
-	{
-		if (count == 21)
-			break ;
-		if (!(buf[count] == '.' || buf[count] == '#' || buf[count] == '\n'))
-			return (0);
-		if (buf[count] == '#')
-			t_count++;
-		count++;
-	}
-	if (t_count != 4)
-		return (0);
-	return (1);
+static char		minsize(char first, char last, char size)
+{
+	char		max;
+
+	max = (last + 1) % 5 - getindex(first, 2);
+	max = max > 0 ? max : -max;
+	max = (max > (last + 1) / 5 - getindex(first, 1) ?
+		max + 1 : (last + 1) / 5 - getindex(first, 1) + 1);
+	return (max > size ? max : size);
 }
 
 /*
@@ -51,32 +49,33 @@ static	int		first_check(char *buf)
 ** Also, function counts the number of tetriminos
 */
 
-static	int		second_check_n_count(char *buf, t_params **params, int *t_tet)
+static	int		check_n_count(char *buf, t_params *params, int *t_tet)
 {
-	int count;
-	int	t_count;
+	int			count;
+	int			t_count;
+	int			r;
+	char		first;
 
-	count = 0;
+	count = -1;
 	t_count = 0;
-	while (buf[count])
-	{
+	r = 0;
+	while (buf[++count])
 		if (buf[count] == '#')
 		{
+			if (!r++)
+				first = setindex((count + 1) / 5, (count + 1) % 5);
+			if (r == 4)
+				params->size = minsize(first, count, params->size);
 			if (check_t(buf, count))
 				(*t_tet)++;
-			if ((buf[count + 1] == '#' || buf[count + 5] == '#') && count == 0)
-				t_count++;
-			else if ((buf[count - 1] == '#' || buf[count + 1] == '#'
-					|| buf[count + 5] == '#') && count < 4)
-				t_count++;
-			else if (buf[count + 1] == '#' || buf[count - 1] == '#'
-					|| buf[count + 5] == '#' || buf[count - 5] == '#')
-				t_count++;
+			t_count += (buf[count + 1] == '#') + (buf[count + 5] == '#') +
+				(buf[count - 1] == '#') + (buf[count - 5] == '#');
 		}
-		count++;
-	}
-	(*params)->amount++;
-	return (t_count != 4) ? 0 : 1;
+		else if (!(buf[count] == '.' || buf[count] == '\n') ||
+			((!((count + 1) % 5) || count == 20) && buf[count] != '\n'))
+			return (0);
+	params->amount++;
+	return ((t_count < 5) || r != 4) ? 0 : 1;
 }
 
 /*
@@ -84,58 +83,46 @@ static	int		second_check_n_count(char *buf, t_params **params, int *t_tet)
 ** tetriminos. It pays attention to t_shaped tetriminos.
 */
 
-static	void	count_size_of_sq(t_params **params, int t_tet)
+static	void	count_size_of_sq(t_params *params, int t_tet)
 {
-	if (t_tet % 2 == 1)
-		(*params)->size = ft_sqrt(((*params)->amount) * 4 + 2);
+	char		size;
+
+	if (t_tet % 2)
+		size = ft_sqrt((params->amount) * 4 + 2);
 	else
-		(*params)->size = 2 * ft_sqrt((*params)->amount);
+		size = ft_sqrt(4 * params->amount);
+	params->size = params->size > size ? params->size : size;
 }
 
 /*
 ** Checkings, checkings and more of them.
 */
 
-static	int		fl_read(t_params **params, char *str)
-{
-	char	buf[22];
-	int		fd;
-	int		t_tet;
-	int		ret;
-	int		flag;
-
-	t_tet = 0;
-	flag = 0;
-	if ((fd = open(str, O_RDONLY)) == -1)
-		return (1);
-	(*params)->amount = 0;
-	while ((ret = read(fd, &buf, 21)))
-	{
-		if (ret < 20 || ret > 21)
-			return (1);
-		if (!first_check(buf) || (!second_check_n_count(buf, params, &t_tet)))
-			return (1);
-		if (ret == 20)
-			flag++;
-	}
-	if (flag != 1)
-		return (1);
-	close(fd);
-	count_size_of_sq(params, t_tet);
-	return (0);
-}
-
-/*
-** Had to create this func because of norm's constrictions.
-*/
-
 t_params		*check(char *str)
 {
+	char		buf[22];
+	int			fd;
+	int			t_tet;
+	int			ret;
 	t_params	*params;
 
-	params = (t_params *)malloc(sizeof(t_params));
-	if (!params || fl_read(&params, str))
+	t_tet = 0;
+	if (!(params = (t_params *)malloc(sizeof(t_params))) ||
+				(fd = open(str, O_RDONLY)) == -1)
 		return (NULL);
-	else
-		return (params);
+	params->amount = 0;
+	params->size = 0;
+	buf[20] = '\n';
+	while ((ret = read(fd, &buf, 21)))
+	{
+		if (ret < 20 || ret > 21 || !check_n_count(buf, params, &t_tet))
+			return (NULL);
+		if (ret == 20)
+			break ;
+	}
+	close(fd);
+	count_size_of_sq(params, t_tet);
+	if (ret != 20)
+		free(params);
+	return (ret == 20 ? params : NULL);
 }

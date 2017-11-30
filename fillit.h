@@ -6,7 +6,7 @@
 /*   By: lburlach <lburlach@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/19 17:23:37 by lburlach          #+#    #+#             */
-/*   Updated: 2017/11/28 16:19:13 by astadnik         ###   ########.fr       */
+/*   Updated: 2017/11/30 19:06:25 by astadnik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,4 +78,5 @@ void			restore(t_filist **rez);
 int				ft_sqrt(int num);
 int				check_t(char *buf, int count);
 t_params		*check(char *str);
+int				ft_sqrt(int num);
 #endif

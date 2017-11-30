@@ -6,7 +6,7 @@
 /*   By: astadnik <astadnik@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/22 15:34:33 by astadnik          #+#    #+#             */
-/*   Updated: 2017/11/28 12:14:00 by astadnik         ###   ########.fr       */
+/*   Updated: 2017/11/29 18:57:35 by astadnik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 void		print(t_filist *rez, char size)
 {
 	unsigned char	i;
-	unsigned char	n;
 	char			sol[size * size];
 	t_point			*tmp;
 
@@ -24,37 +23,21 @@ void		print(t_filist *rez, char size)
 		sol[i] = '.';
 	while (rez)
 	{
-		n = (unsigned char)((t_colobj *)rez->data->c)->n;
-		/*
-		ft_putendl("");
-		ft_putchar(n);
-		ft_putendl("");
-		*/
 		tmp = rez->data->r;
 		while (tmp != rez->data)
 		{
-		/*
-		ft_putendl("");
-		ft_putchar(n);
-		ft_putchar(' ');
-		ft_putnbr(getindex(((t_colobj *)tmp->c)->n, 1));
-		ft_putchar(' ');
-		ft_putnbr(getindex(((t_colobj *)tmp->c)->n, 2));
-		ft_putendl("");
-		*/
 			sol[(getindex(((t_colobj *)tmp->c)->n, 1) - 1) * size +
-				getindex(((t_colobj *)tmp->c)->n, 2) - 1] = n;
+				getindex(((t_colobj *)tmp->c)->n, 2) - 1] =
+				(unsigned char)((t_colobj *)rez->data->c)->n;
 			tmp = tmp->r;
 		}
 		rez = rez->next;
 	}
-
-	i = 0;
-	while (i < size * size)
+	while (++i < size * size)
 	{
-		ft_putchar(sol[i]);
-		if (!(++i % size))
+		if (!(i % size) && i)
 			ft_putchar('\n');
+		ft_putchar(sol[i]);
 	}
 }
 
@@ -111,9 +94,8 @@ void		visualize(t_colobj *head, char f1, char f2, t_colobj *last)
 	while (last ? (col->l != last) : col->n != 17)
 	{
 		rowh = col->d;
-		while ((void *)rowh != (void *)col)
+		while ((void *)rowh != (void *)col && (temp = (t_colobj *)head->r))
 		{
-			temp = (t_colobj *)head->r;
 			ft_putstr("   ");
 			while (temp != head)
 			{
