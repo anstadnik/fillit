@@ -6,7 +6,7 @@
 /*   By: astadnik <astadnik@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/22 11:05:06 by astadnik          #+#    #+#             */
-/*   Updated: 2017/11/28 15:31:30 by astadnik         ###   ########.fr       */
+/*   Updated: 2017/11/29 20:06:57 by astadnik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,6 @@ static char		incpos(char *pos, char size)
 			i = 4;
 			while (i--)
 				pos[i] = setindex(getindex(pos[i], 1), getindex(pos[i], 2) + 1);
-			i = -1;
 		}
 	i = 4;
 	while (i--)

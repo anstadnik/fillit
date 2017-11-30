@@ -6,7 +6,7 @@
 /*   By: lburlach <lburlach@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/19 17:31:30 by lburlach          #+#    #+#             */
-/*   Updated: 2017/11/29 18:37:43 by lburlach         ###   ########.fr       */
+/*   Updated: 2017/11/29 20:59:13 by astadnik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int		check_t(char *buf, int count)
 ** Also, function counts the number of tetriminos
 */
 
-static	int		second_check_n_count(char *buf, t_params *params, int *t_tet)
+static	int		check_n_count(char *buf, t_params *params, int *t_tet)
 {
 	int count;
 	int	t_count;
@@ -115,21 +115,21 @@ static	void	count_size_of_sq(t_params *params, int t_tet)
 
 t_params		*check(char *str)
 {
-	char	buf[22];
-	int		fd;
-	int		t_tet;
-	int		ret;
+	char		buf[22];
+	int			fd;
+	int			t_tet;
+	int			ret;
 	t_params	*params;
 
 	t_tet = 0;
-	if (!(params = (t_params *)malloc(sizeof(t_params))) || 
+	if (!(params = (t_params *)malloc(sizeof(t_params))) ||
 				(fd = open(str, O_RDONLY)) == -1)
 		return (NULL);
 	params->amount = 0;
 	params->max_l = 0;
 	while ((ret = read(fd, &buf, 21)))
 	{
-		if (ret < 20 || ret > 21 || !second_check_n_count(buf, params, &t_tet))
+		if (ret < 20 || ret > 21 || !check_n_count(buf, params, &t_tet))
 			return (NULL);
 		if (ret == 20)
 			break ;

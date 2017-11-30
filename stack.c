@@ -6,7 +6,7 @@
 /*   By: astadnik <astadnik@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/26 20:00:23 by astadnik          #+#    #+#             */
-/*   Updated: 2017/11/28 15:32:02 by astadnik         ###   ########.fr       */
+/*   Updated: 2017/11/29 20:15:15 by astadnik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,17 +23,11 @@ static void	hide(t_point *p)
 
 	((t_colobj *)((t_colobj *)p->c)->l)->r = ((t_colobj *)p->c)->r;
 	((t_colobj *)((t_colobj *)p->c)->r)->l = ((t_colobj *)p->c)->l;
-	if (p->d == p->c)
-		temp = ((t_colobj *)p->d)->d;
-	else
-		temp = (t_point *)p->d;
+	temp = p->d == p->c ? ((t_colobj *)p->d)->d : (t_point *)p->d;
 	while (temp != p)
 	{
-		if (temp == p->c)
-		{
-			temp = ((t_colobj *)temp)->d;
+		if (temp == p->c && (temp = ((t_colobj *)temp)->d))
 			continue ;
-		}
 		temp2 = temp;
 		while ((temp2 = temp2->r) != temp)
 		{
@@ -79,17 +73,11 @@ static void	show(t_point *p)
 
 	((t_colobj *)((t_colobj *)p->c)->l)->r = p->c;
 	((t_colobj *)((t_colobj *)p->c)->r)->l = p->c;
-	if (p->u == p->c)
-		temp = ((t_colobj *)p->u)->u;
-	else
-		temp = (t_point *)p->u;
+	temp = p->u == p->c ? ((t_colobj *)p->u)->u : (t_point *)p->u;
 	while (temp != p)
 	{
-		if (temp == p->c)
-		{
-			temp = ((t_colobj *)temp)->u;
+		if (temp == p->c && (temp = ((t_colobj *)temp)->u))
 			continue ;
-		}
 		temp2 = temp;
 		while ((temp2 = temp2->l) != temp)
 		{
